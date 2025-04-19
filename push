@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daraja Pay</title>
+</head>
+<body>
+  <h1>Make Payment</h1>
+  <button onclick="makePayment()">Pay Ksh 1</button>
+
+  <script>
+    async function makePayment() {
+      const phone = prompt("Enter phone number (07xxxxxxxx):");
+      const response = await fetch("http://localhost:3000/stkpush", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          phone: phone,
+          amount: 1
+        })
+      });
+
+      const result = await response.json();
+      alert(result.message || "Payment request sent");
+    }
+  </script>
+</body>
+</html>
